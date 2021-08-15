@@ -1,0 +1,137 @@
+<h1>TIC TAC TOE</h1>
+<div class='grid-container'>
+    <div id="b1" class='grid-item'></div>
+    <div id="b2" class='grid-item'></div>
+    <div id="b3" class='grid-item'></div>
+    <div id="b4" class='grid-item'></div>
+    <div id="b5" class='grid-item'></div>
+    <div id="b6" class='grid-item'></div>
+    <div id="b7" class='grid-item'></div>
+    <div id="b8" class='grid-item'></div>
+    <div id="b9" class='grid-item'></div>
+</div>
+<br>
+<button class="reset-btn">reset</button><br><br>
+<div class="choose-Btn"></div>
+<div class='result'></div>
+
+
+<script>
+
+    let boxes = document.querySelectorAll('.grid-item');
+    let resetBtn = document.querySelector('.reset-btn');
+    let c = 0;
+    let result = document.querySelector('.result');
+    let buttons = document.querySelector('.choose-Btn');
+    let XBtn = document.createElement('button');
+    let OBtn = document.createElement('button');
+    XBtn.classList = "X-btn";
+    OBtn.classList = 'O-btn';
+    let player1 = "";
+    let player2 = "";
+
+    createButtons();
+
+    function createButtons() {
+        buttons.textContent = "Choose: "
+        XBtn.textContent = "X";
+        OBtn.textContent = "O";
+        buttons.appendChild(XBtn);
+        buttons.appendChild(OBtn);
+    }
+
+    function removeButtons() {
+        buttons.textContent = "";
+        buttons.removeChild(XBtn);
+        buttons.removeChild(OBtn);
+    }
+
+    function checkPattern(box) {
+        let b1 = document.querySelector('#b1').textContent;
+        let b2 = document.querySelector('#b2').textContent;
+        let b3 = document.querySelector('#b3').textContent;
+        let b4 = document.querySelector('#b4').textContent;
+        let b5 = document.querySelector('#b5').textContent;
+        let b6 = document.querySelector('#b6').textContent;
+        let b7 = document.querySelector('#b7').textContent;
+        let b8 = document.querySelector('#b8').textContent;
+        let b9 = document.querySelector('#b9').textContent;
+        if (((b1 === b2 && b1 === b3 && b1 !== "") || (b1 === b4 && b1 === b7 && b1 !== "") || (b1 === b5 && b1 === b9 && b1 !== "") || (b2 === b5 && b2 === b8 && b2 !== "") || (b3 === b6 && b3 === b9 && b3 !== "") || (b4 === b5 && b4 === b6 && b4 !== "") || (b7 === b8 && b7 === b9 && b7 !== "") || (b3 === b5 && b3 === b7 && b3 !== "")) && box.textContent !== "") {
+            result.textContent = "The winner is " + box.textContent;
+        }
+        else if (c === 9) {
+            result.textContent = "Draw";
+        }
+    }
+
+    XBtn.addEventListener('click', () => {
+            player1 = "X";
+            player2 = "O";
+            removeButtons();
+        });
+
+        OBtn.addEventListener('click', () => {
+            player1 = "O";
+            player2 = "X";
+            removeButtons();
+        });
+
+    boxes.forEach((box) => {
+            box.addEventListener('click', () => {
+                if (box.textContent === "" && result.textContent === "" && player1 !== "" && player2 !== "") {
+                    if (c % 2 === 0) {
+                        box.textContent = player1;
+                        box.removeEventListener('click', () => { });
+                    }
+                    else {
+                        box.textContent = player2;
+                        box.removeEventListener('click', () => { });
+                    }
+                    c++;
+                }
+                checkPattern(box);
+            });
+        });
+
+    resetBtn.addEventListener('click', () => {
+            player1 = "";
+            player2 = "";
+            createButtons();
+            boxes.forEach((box) => {
+                box.textContent = "";
+                result.textContent = "";
+                c = 0;
+            });
+        });
+
+</script>
+
+<style>
+
+.grid-container{
+  height: 150px;
+  width: 150px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+.grid-item{
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+  text-align: center;
+  font-size: 30px;
+  font-family: verdana;
+}
+button{
+  cursor: pointer;
+}
+.result{
+  font-size: 25px;
+}
+.X-btn, .O-btn{
+  margin: 2px;
+  
+}
+
+</style>
