@@ -13,7 +13,7 @@
 <br>
 <button class="reset-btn">reset</button><br><br>
 <div class="choose-Btn"></div>
-<div class='result'></div>
+<span class='result'></span>
 
 
 <script>
@@ -57,10 +57,14 @@
         let b8 = document.querySelector('#b8').textContent;
         let b9 = document.querySelector('#b9').textContent;
         if (((b1 === b2 && b1 === b3 && b1 !== "") || (b1 === b4 && b1 === b7 && b1 !== "") || (b1 === b5 && b1 === b9 && b1 !== "") || (b2 === b5 && b2 === b8 && b2 !== "") || (b3 === b6 && b3 === b9 && b3 !== "") || (b4 === b5 && b4 === b6 && b4 !== "") || (b7 === b8 && b7 === b9 && b7 !== "") || (b3 === b5 && b3 === b7 && b3 !== "")) && box.textContent !== "") {
-            result.textContent = "The winner is " + box.textContent;
+            result.textContent = "Winner: " + box.textContent;
+            result.style.border = "2px solid black";
+            result.style.backgroundColor = "lightgreen";
         }
         else if (c === 9) {
             result.textContent = "Draw";
+            result.style.border = "2px solid black";
+            result.style.backgroundColor = "lightgreen";
         }
     }
 
@@ -97,6 +101,8 @@
             player1 = "";
             player2 = "";
             createButtons();
+            result.style.border = "";
+            result.style.backgroundColor = "";
             boxes.forEach((box) => {
                 box.textContent = "";
                 result.textContent = "";
@@ -108,11 +114,18 @@
 
 <style>
 
+h1{
+  font-family:'Courier New', Courier, monospace;
+  font-weight: 600;
+  font-size: 30px;
+}
 .grid-container{
-  height: 150px;
-  width: 150px;
+  height: 155px;
+  width: 155px;
   display: grid;
   grid-template-columns: auto auto auto;
+  background-color: white;
+  box-shadow: 3px 3px 1px black;
 }
 .grid-item{
   cursor: pointer;
@@ -120,18 +133,29 @@
   width: 50px;
   border: 1px solid black;
   text-align: center;
-  font-size: 30px;
-  font-family: verdana;
+  font-size: 40px;
+  font-family: monospace;
 }
 button{
   cursor: pointer;
+  font-family: monospace;
+  background-color: lightgreen;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px black;
 }
 .result{
   font-size: 25px;
+  font-family: monospace;
+  padding: 2px;
 }
 .X-btn, .O-btn{
+  font-family: monospace;
   margin: 2px;
-  
 }
+
+body{
+  background-color: beige;
+}
+
 
 </style>
